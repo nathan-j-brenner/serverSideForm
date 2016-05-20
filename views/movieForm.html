@@ -8,36 +8,30 @@
     <body>
         <div class="container mainwrap">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-6 col-sm-offset-3">
                     <div id='moviesForm'>
                         <h3>Add a movie</h3>
                         <form action="/postMovie" method="post" name="movie">
                             <div class="form-group">
-                                <label>
-                                    Title
-                                    <input type="text" name="title" value="" class="form-control" required />
-                                </label>
+                                <label>Title</label>
+                                <input type="text" name="title" value="" class="form-control" required />
                             </div>
                             <div class="form-group">
-                                <label>
-                                    Year
-                                    <input type="text" name="year" value="" class="form-control" required />
-                                </label>
+                                <label>Year</label>
+                                <input type="text" name="year" value="" class="form-control" required />
                             </div>
                             <div class="form-group">
-                                <label>
-                                    imdb
-                                    <input type="text" name="imdb" value="" class="form-control" required />
-                                </label>
+                                <label>imdb</label>
+                                <input type="text" name="imdb" value="" class="form-control" required />
                             </div>
-                            <input type="submit" value="Submit" class="btn btn-primary" />
+                            <input type="submit" value="Submit" class="btn btn-primary btn-block" />
                         </form>
                     </div>
                     <div id="movies">
                         <h3>Movies</h3>
                         <ul>
                             {% for movie in movies %}
-                            <li><a href="http://www.imdb.com/title/{{ movie.imdb }}">{{ movie.title }}, {{ movie.year }}</a></li>
+                            <li><a href="http://www.imdb.com/title/{{ movie.imdb }}" target="_blank">{{ movie.title }}, {{ movie.year }}</a></li>
                             {% else %}
                             <li>No movies found.</li>
                             {% endfor %}
