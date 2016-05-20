@@ -1,25 +1,50 @@
-<!doctype HTML>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>Movie form</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     </head>
     <body>
-        <form action="/postMovie" method="post">
-            <label>
-                Movie title
-                <input type="text" name="title" required />
-            </label>
-            <label>
-                Movie year
-                <input type="text" name="year" required />
-            </label>
-            <label>
-                Movie imdb
-                <input type="text" name="imdb" required />
-            </label>
-            <input type="submit" value="Submit" />
-        </form>
+        <div class="container mainwrap">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id='moviesForm'>
+                        <h3>Add a movie</h3>
+                        <form action="/postMovie" method="post" name="movie">
+                            <div class="form-group">
+                                <label>
+                                    Title
+                                    <input type="text" name="title" value="" class="form-control" required />
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Year
+                                    <input type="text" name="year" value="" class="form-control" required />
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    imdb
+                                    <input type="text" name="imdb" value="" class="form-control" required />
+                                </label>
+                            </div>
+                            <input type="submit" value="Submit" class="btn btn-primary" />
+                        </form>
+                    </div>
+                    <div id="movies">
+                        <h3>Movies</h3>
+                        <ul>
+                            {% for movie in movies %}
+                            <li><a href="http://www.imdb.com/title/{{ movie.imdb }}">{{ movie.title }}, {{ movie.year }}</a></li>
+                            {% else %}
+                            <li>No movies found.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

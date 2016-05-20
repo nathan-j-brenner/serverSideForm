@@ -21,12 +21,8 @@ MongoClient.connect('mongodb://localhost:27017/movies', (err, db)=>{
     console.log('successfully connected to MongoDB');
 
     app.get('/', (req, res, next)=>{
-        res.render('movieForm', {});
-    });
-
-    app.get('/movies', (req, res, next)=>{
         db.collection('title').find({}).toArray((err, docs)=>{
-            res.render('movies', { 'movies': docs });
+            res.render('movieForm', { 'movies': docs });
         });
     });
 
@@ -35,20 +31,13 @@ MongoClient.connect('mongodb://localhost:27017/movies', (err, db)=>{
         var year = req.body.year;
         var imdb = req.body.imdb;
 
-        if(typeof title == 'undefined'){
-            next("What's the name of the movie?");
-        } else if(typeof year == 'undefined') {
-            next(`What year was ${title} made in?`);
-        } else if(typeof imdb == 'undefined') {
-            next(`What is the url at imdb for ${title}?`);
-        } else {
-            db.collection('title').insertOne({title: title, year: year, imdb: imdb}, (err, result)=>{
-                assert.equal(err, null);
-                assert.equal(1, result.result.n);
-                console.log('Inserted a document into the movies database, title collection');
-            });
-            res.send(`Movie: ${title}, year: ${year}, imdb: ${imdb}`);
-        }
+        db.collection('title').insertOne({title: title, year: year, imdb: imdb}, (err, result)=>{
+            assert.equal(err, null);
+            assert.equal(1, result.result.n);
+            console.log('Inserted a document into the movies database, title collection');
+        });
+        res.send(`Document inserted in Movies db: title: ${title}, year: ${year}, imdb: ${imdb}`);
+
     });
 
     app.use(errorHandler);
